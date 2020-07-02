@@ -1,0 +1,42 @@
+var tmi = require("tmi.js")
+var channel = "nozele"
+
+var config = {
+	options: {
+		debug: true
+	},
+	connection: {
+		cluster: "aws",
+		reconnect: true
+	},
+	identity: {
+		username: "giyu_bot",
+		password: "**************************z"
+	},
+	channels :[channel]
+}
+
+var client = new tmi.client(config)
+client.connect();
+
+client.on("connected", (address, port) => {
+	client.action(channel, " Connected ")
+})
+
+
+client.on("chat", ( channel, user, message, self)=> {
+	if(self) return;
+	if (message == "hi") {
+		client.say(channel, "Hello :) ")
+	}
+	if (message == "TriHard 7") {
+		client.say(channel, "WideHard 7")	
+	}
+	if (message == "test") {
+		client.say(channel, "I'm working :) ")	
+	}
+})
+
+setInterval( ()=> {
+  client.say(channel, "PepePls");
+}, 30000);
